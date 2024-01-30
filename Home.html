@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Page Title</title>
+    <script src="{{ url_for('static',filename='js/bootstrap.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/jquery.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <div class="col-sm-10 offset-sm-1 text-center">
+            <h1>Crop Classification</h1>
+            <button id="populate">Populate?</button>
+            <div class="row mb-3">
+                <label for="temperature" class="col-sm-2 col-form-label">Temperature :</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="temperature" name="temperature">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="humidity" class="col-sm-2 col-form-label">Humidity :</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="humidity" name="humidity">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="ph" class="col-sm-2 col-form-label">pH :</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="ph" name="ph">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="moisture" class="col-sm-2 col-form-label">Moisture :</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="moisture" name="moisture">
+                </div>
+            </div>
+            <button id="submit">Submit</button>
+            <div id="output"></div>
+        </div>
+    </div>
+    <script>
+        console.log("temperature :" + temperature);
+        $("#populate").click(function () {
+            $.ajax({
+                type: "POST",
+                url: "/populate",
+                data: {
+                    'test': 'test'
+                },
+                success: function (result) {
+                    $("#temperature").val(result.temperature);
+                    $("#humidity").val(result.humidity);
+                    $("#ph").val(result.ph);
+                    $("#moisture").val(result.moisture);
+                }
+            });
+        });
+
+        $("#submit").click(function () {
+            var temperature = document.getElementById("temperature").value;
+            var humidity = document.getElementById("humidity").value;
+            var ph = document.getElementById("ph").value;
+            var moisture = document.getElementById("moisture").value;
+            $.ajax({
+                type: "POST",
+                url: "/classify",
+                dataType: 'json',
+                data: {
+                    "temperature": temperature,
+                    "humidity": humidity,
+                    "ph": ph,
+                    "moisture": moisture
+                },
+                success: function (result) {
+                    $("#output").html("Predicted Crop : " + result.crop);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
