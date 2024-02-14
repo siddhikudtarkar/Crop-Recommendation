@@ -13,13 +13,13 @@ This project aimed to increase crop yields, optimize resource usage, and promote
 
 Based on the image you sent, here’s a breakdown of a possible way to set up a crop recommendation system using machine learning (ML) and the Internet of Things (IoT), along with website development:
 
-Data Collection:
+## Data Collection:
 
 Sensors: Various sensors capture environmental data like soil moisture, temperature, and humidity from the field.
 ESP8266 NodeMCU WiFi development boards: These boards collect sensor data and transmit it to the cloud platform.
-Data Storage and Processing:
 
-## Firebase: 
+## Data Storage and Processing:
+Firebase: 
 This cloud platform stores the sensor data, making it accessible for the ML model.
 
 ## Data Training: 
